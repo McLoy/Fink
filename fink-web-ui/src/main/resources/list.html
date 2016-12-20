@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Bootstrap, from Twitter</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link href="http://localhost:8077/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="http://localhost:8077/resources/bootstrap/js/bootstrap.js"></script>
+	<title>Job list</title>
+	<style>
+		td {
+			cursor: pointer;
+		}
+	</style>
+	<script>
+		function editJob(jobKey) {
+            window.open("/job/" + jobKey);
+        }
+        function deleteJob(jobKey) {
+            event.stopPropagation();
+            var row = event.target.parentElement.parentElement;
+            $.ajax({
+                url: "/job/" + jobKey,
+                type: "DELETE",
+                success: function(result) {
+                    row.remove();
+                }
+            });
+        }
+	</script>
+</head>
+<body>
+<div class="container">
+	<h2>Job list</h2>
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>Job class</th>
+			<th>Durability</th>
+			<th>Should recover</th>
+			<th>Description</th>
+			<th>&nbsp;</th>
+		</tr>
+		</thead>
+		<tr onclick="editJob('DEFAULT.6da64b5bd2ee-6a6fa4cb-554c-4dc8-99fe-d4191079022a')">
+			<td>HelloJob</td>
+			<td>true</td>
+			<td>false</td>
+			<td>Just empty job</td>
+			<td>
+				<button class="btn btn-danger" onclick="deleteJob('DEFAULT.6da64b5bd2ee-6a6fa4cb-554c-4dc8-99fe-d4191079022a')">Delete</button>
+			</td>
+		</tr>
+		<tr>
+			<td>HelloJob</td>
+			<td>true</td>
+			<td>false</td>
+			<td>Just empty job</td>
+			<td>
+				<button>Edit</button>
+				<button>Delete</button>
+			</td>
+		</tr>
+		<tr>
+			<td>HelloJob</td>
+			<td>true</td>
+			<td>false</td>
+			<td>Just empty job</td>
+			<td>
+				<button>Edit</button>
+				<button>Delete</button>
+			</td>
+		</tr>
+		<tr>
+			<td>HelloJob</td>
+			<td>true</td>
+			<td>false</td>
+			<td>Just empty job</td>
+			<td>
+				<button>Edit</button>
+				<button>Delete</button>
+			</td>
+		</tr>
+	</table>
+	<button objectType="Job">Add</button>
+</div>
+<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+<!--<script src="http://localhost:8077/resources/bootstrap/js/bootstrap.js"></script>-->
+</body>
+</html>
