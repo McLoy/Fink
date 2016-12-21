@@ -38,5 +38,5 @@
             </c:forEach>
         </tbody>
     </table>
-<button class="btn btn-success" onclick="editItem('job','')">Add</button>
+<a class="btn btn-success" href='?form')>Add</a>
 <jsp:include page="../footer.jsp"/>

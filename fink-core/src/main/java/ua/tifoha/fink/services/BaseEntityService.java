@@ -20,7 +20,7 @@ public class BaseEntityService<T, R extends JpaRepository<T, Long>> implements E
 	}
 
 	@Override
-	public <S extends T> S save(S entity) {
+	public T save(T entity) {
 		return repository.save(entity);
 	}
 

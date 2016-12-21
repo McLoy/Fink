@@ -95,7 +95,7 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <a class="btn btn-success" href='/job/${entity.key}/trigger?form' target="_self">Add</a>
+            <a class="btn btn-success" href='${entity.key}/trigger?form' target="_self">Add</a>
         </div>
     </div>
     </div>

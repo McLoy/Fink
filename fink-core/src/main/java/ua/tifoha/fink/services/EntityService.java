@@ -9,7 +9,7 @@ public interface EntityService<T, ID> {
 	List<T> findAll();
 
 	@Transactional(readOnly = false)
-	<S extends T> S save(S entity);
+	T save(T entity);
 
 	T findOne(Long id);
 
