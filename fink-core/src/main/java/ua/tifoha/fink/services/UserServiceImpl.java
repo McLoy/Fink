@@ -4,6 +4,7 @@ import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -48,27 +49,4 @@ public class UserServiceImpl extends BaseEntityService<User, UserRepository> imp
 		return user;
 	}
 
-	@Override
-	public Collection<UserDetails> getAllUsers() {
-		return exceptionWrapper(anyGroup(), repository::findAll).stream()
-				.map(key -> exceptionWrapper(key, repository::getUserDetail))
-				.collect(Collectors.toList());
-	}
-
-	private void handleException(Throwable e) {
-		throw new RuntimeException(e);
-	}
-
-	private <T, R> R exceptionWrapper(T value, UserServiceImpl.ThrowableFunction<T, R> function) {
-		try {
-			return function.apply(value);
-		} catch (Throwable e) {
-			handleException(e);
-		}
-		return null;
-	}
-
-	private interface ThrowableFunction<T, R> {
-		R apply(T t) throws Throwable;
-	}
 }

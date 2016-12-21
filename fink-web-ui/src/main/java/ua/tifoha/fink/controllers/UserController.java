@@ -8,17 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ua.tifoha.fink.entities.User;
-import ua.tifoha.fink.exceptions.NotFoundException;
 import ua.tifoha.fink.model.JobModel;
-import ua.tifoha.fink.model.UserModel;
-import ua.tifoha.fink.services.JobService;
 import ua.tifoha.fink.services.UserService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -26,7 +21,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@RequestMapping("job")
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
@@ -35,11 +30,11 @@ public class UserController {
     @RequestMapping (method = GET)
     public ModelAndView getUserList() {
         ModelAndView model = new ModelAndView("user/list");
-        List<User> userList = userService.getAllUsers()
-                .stream()
-                .map(UserModel::new)
-                .collect(Collectors.toList());
-        model.addObject("userList", userList);
+//        List<User> userList = userService.findAll()
+//                .stream()
+//                .map(User::new)
+//                .collect(Collectors.toList());
+        model.addObject("userList", userService.findAll());
         return model;
     }
 

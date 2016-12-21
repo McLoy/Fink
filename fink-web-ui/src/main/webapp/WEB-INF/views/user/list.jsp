@@ -5,38 +5,34 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th>Key</th>
-        <th>Description</th>
-        <th>Job class</th>
-        <th>Durable</th>
-        <th>Should recover</th>
-        <th>Triggers</th>
+        <th>User</th>
+        <th>Email</th>
+        <th>Enabled</th>
         <th>&nbsp;</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="user" items="${jobList}">
-        <tr class="entity-row" onclick="editItem('user','${job.key}')">
-            <td>${job.key}</td>
-            <td>${job.description}</td>
-            <td>${job.jobClass.simpleName}</td>
+    <c:forEach var="user" items="${userList}">
+        <tr class="entity-row" onclick="editItem('user','${user.name}')">
+            <td>${user.name}</td>
+            <td>${user.email}</td>
             <td>
-                <c:if test="${job.durable}">
+                <c:if test="${user.enabled}">
                     <span class="glyphicon glyphicon-ok text-success"></span>
                 </c:if>
             </td>
+            <%--<td>--%>
+                <%--<c:if test="${job.requestsRecovery}">--%>
+                    <%--<span class="glyphicon glyphicon-ok text-success"></span>--%>
+                <%--</c:if>--%>
+            <%--</td>--%>
+            <%--<td>${user.size()}</td>--%>
             <td>
-                <c:if test="${job.requestsRecovery}">
-                    <span class="glyphicon glyphicon-ok text-success"></span>
-                </c:if>
-            </td>
-            <td>${job.triggers.size()}</td>
-            <td>
-                <button class="btn btn-danger" onclick="deleteItem('job','${job.key}')">Delete</button>
+                <button class="btn btn-danger" onclick="deleteItem('user','${user.name}')">Delete</button>
             </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<button class="btn btn-success" onclick="editItem('user','')">Add</button>
+<%--<button class="btn btn-success" onclick="editItem('user','')">Add</button>--%>
 <jsp:include page="../footer.jsp"/>
