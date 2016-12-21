@@ -35,7 +35,7 @@ public class UserController {
     @RequestMapping (method = GET)
     public ModelAndView getUserList() {
         ModelAndView model = new ModelAndView("user/list");
-        List<User> userList = userService.getAllUsers();
+        List<User> userList = userService.getAllUsers()
                 .stream()
                 .map(UserModel::new)
                 .collect(Collectors.toList());
