@@ -20,5 +20,5 @@ public interface UserService extends EntityService<User, Long>, UserDetailsServi
 	@Transactional
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
-	Collection<User> getAllUsers();
+	Collection<UserDetails> getAllUsers();
 }
