@@ -22,7 +22,7 @@
                 </c:if>
             </td>
             <td>
-                <button class="btn btn-danger" onclick="deleteItem('user','${user.name}')">Delete</button>
+                <button class="btn btn-danger" onclick="deleteItem('user','${user.id}')">Delete</button>
             </td>
         </tr>
     </c:forEach>

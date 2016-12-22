@@ -1,7 +1,11 @@
 package ua.tifoha.fink.controllers;
 
-import org.quartz.*;
+import org.quartz.JobBuilder;
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +18,7 @@ import ua.tifoha.fink.services.UserService;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -33,6 +37,33 @@ public class UserController {
         List<User> userList = userService.findAll();
         model.addObject("userList", userList);
         return model;
+    }
+
+    @RequestMapping (params = "form", method = GET)
+    public ModelAndView getUserNewForm() {
+        return getUserDetailModel(new User());
+    }
+
+    private ModelAndView getUserDetailModel(User user) {
+        ModelAndView view = new ModelAndView("user/edit");
+        view.addObject("name", user.getName());
+        view.addObject("email", user.getEmail());
+        view.addObject("password", user.getPassword());
+        view.addObject("enabled", user.isEnabled());
+        return view;
+    }
+
+    @RequestMapping (value = "/{name}", method = POST)
+    public ModelAndView save(@PathVariable ("name") String name,
+                             @ModelAttribute("user") User user) {
+        userService.save(user);
+
+        return new ModelAndView("redirect:/user/" + user.getName() + "?form");
+    }
+
+    @RequestMapping (value = "/{id}", method = DELETE)
+    public void delete(@PathVariable("id") Long id, HttpServletResponse response) {
+        userService.delete(id);
     }
 
 }
