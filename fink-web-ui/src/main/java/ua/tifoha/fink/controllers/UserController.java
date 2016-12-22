@@ -47,7 +47,7 @@ public class UserController {
     private ModelAndView getUserDetailModel(UserDetails user) {
         ModelAndView view = new ModelAndView("user/edit");
         view.addObject("name", user.getUsername());
-//        view.addObject("email", user.);
+//        view.addObject("email", user.getEmail());
         view.addObject("password", user.getPassword());
         view.addObject("enabled", user.isEnabled());
         return view;
@@ -55,17 +55,14 @@ public class UserController {
 
     @RequestMapping (value = "/{name}", method = GET, params = "form")
     public ModelAndView getUserEditForm(@PathVariable (value = "name") String name) {
-//        User currUser = .findOne(id);
         return getUserDetailModel(userService.loadUserByUsername(name));
     }
 
     @RequestMapping (value = "/{name}", method = POST)
     public ModelAndView save(@PathVariable ("name") String name,
                              @ModelAttribute("user") User user) {
-
         userService.save(user);
-
-        return new ModelAndView("redirect:/user/" + user.getName() + "?form");
+        return new ModelAndView("redirect:/user");
     }
 
     @RequestMapping (value = "/{id}", method = DELETE)
