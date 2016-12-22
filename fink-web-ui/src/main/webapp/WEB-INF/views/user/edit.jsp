@@ -6,9 +6,9 @@
 <form method="post" action="/user/${entity.name==null?'null':entity.name}" class="form-horizontal">
     <%--<input type="hidden" id="name" name="name" value="${entity.name}"/>--%>
     <div class="form-group">
-        <label for="user" class="control-label col-xs-2">User:</label>
+        <label for="name" class="control-label col-xs-2">User:</label>
         <div class="col-xs-10">
-            <textarea id="user" name="user" rows="1" class="form-control">${entity.name}</textarea>
+            <textarea id="name" name="name" rows="1" class="form-control">${entity.name}</textarea>
         </div>
     </div>
     <div class="form-group">
