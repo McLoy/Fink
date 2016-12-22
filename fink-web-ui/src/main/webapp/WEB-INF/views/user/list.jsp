@@ -21,12 +21,6 @@
                     <span class="glyphicon glyphicon-ok text-success"></span>
                 </c:if>
             </td>
-            <%--<td>--%>
-                <%--<c:if test="${job.requestsRecovery}">--%>
-                    <%--<span class="glyphicon glyphicon-ok text-success"></span>--%>
-                <%--</c:if>--%>
-            <%--</td>--%>
-            <%--<td>${user.size()}</td>--%>
             <td>
                 <button class="btn btn-danger" onclick="deleteItem('user','${user.name}')">Delete</button>
             </td>
@@ -34,5 +28,5 @@
     </c:forEach>
     </tbody>
 </table>
-<%--<button class="btn btn-success" onclick="editItem('user','')">Add</button>--%>
+<button class="btn btn-success" onclick="editItem('user','')">Add</button>
 <jsp:include page="../footer.jsp"/>
