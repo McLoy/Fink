@@ -3,18 +3,28 @@ package ua.tifoha.fink.services;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.quartz.Scheduler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.query.Jpa21Utils;
 import org.springframework.data.jpa.repository.query.JpaEntityGraph;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import ua.tifoha.fink.entities.User;
 import ua.tifoha.fink.repositories.UserRepository;
 
+import static org.quartz.impl.matchers.GroupMatcher.anyGroup;
+
+@Service
 public class UserServiceImpl extends BaseEntityService<User, UserRepository> implements UserService {
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -38,4 +48,5 @@ public class UserServiceImpl extends BaseEntityService<User, UserRepository> imp
 		user.getRoles().size();
 		return user;
 	}
+
 }

@@ -6,6 +6,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import ua.tifoha.fink.entities.User;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface UserService extends EntityService<User, Long>, UserDetailsService{
 
 	/**
@@ -17,4 +20,5 @@ public interface UserService extends EntityService<User, Long>, UserDetailsServi
 	@Override
 	@Transactional
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
 }
