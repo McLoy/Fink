@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.tifoha.fink.entities.User;
 import ua.tifoha.fink.services.UserService;
@@ -34,26 +35,34 @@ public class UserController {
 
     @RequestMapping (params = "form", method = GET)
     public ModelAndView getUserNewForm() {
-        return getUserDetailModel(new User());
+        return getUserModel(new User());
     }
 
-    private ModelAndView getUserDetailModel(UserDetails user) {
+    private ModelAndView getUserModel(User user) {
         ModelAndView view = new ModelAndView("user/edit");
-        view.addObject("name", user.getUsername());
-//        view.addObject("email", user.getEmail());
-        view.addObject("password", user.getPassword());
-        view.addObject("enabled", user.isEnabled());
+        view.addObject("entity", user);
         return view;
     }
 
-    @RequestMapping (value = "/{name}", method = GET, params = "form")
-    public ModelAndView getUserEditForm(@PathVariable (value = "name") String name) {
-        return getUserDetailModel(userService.loadUserByUsername(name));
+    @RequestMapping (value = "/{id}", method = GET, params = "form")
+    public ModelAndView getUserEditForm(@PathVariable (value = "id") Long id) {
+        User currUser = userService.findOne(id);
+//        if (currUser == null){
+//            new Exception("User not found");
+//        } else {
+//            currUser.setPassword("******");
+//        }
+        //if (one == null) throw Exception
+        //else password = "" чтоб в модель юзер ушел без пасссворда
+        return getUserModel(currUser);
     }
 
-    @RequestMapping (value = "/{name}", method = POST)
-    public ModelAndView save(@PathVariable ("name") String name,
-                             @ModelAttribute("user") User user) {
+    @RequestMapping (value = "/{id}", method = POST)
+    public ModelAndView save(@PathVariable ("id") Long id,
+                             @ModelAttribute User user) {
+        //String confirmPassword = @RequestParam;
+        // @RequestParam берет параметр из строки - по нему можно получить поле после ввода пользователем
+        //userService.findOne(id)
         userService.save(user);
         return new ModelAndView("redirect:/user");
     }
@@ -62,5 +71,4 @@ public class UserController {
     public void delete(@PathVariable("id") Long id, HttpServletResponse response) {
         userService.delete(id);
     }
-
 }

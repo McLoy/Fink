@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../header.jsp"/>
-<form method="post" action="/user/${entity.name==null?'null':entity.name}" class="form-horizontal">
-    <%--<input type="hidden" id="name" name="name" value="${entity.name}"/>--%>
+<form method="post" action="/user/${entity.id==null?'null':entity.id}" class="form-horizontal">
+    <input type="hidden" id="id" name="id" value="${entity.id}"/>
     <div class="form-group">
         <label for="name" class="control-label col-xs-2">User:</label>
         <div class="col-xs-10">
@@ -34,7 +34,8 @@
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <input type="submit" value="Save" class="btn btn-primary">
-            <input type="reset" value="Cancel" class="btn">
+            <%-- Cancel button not working --%>
+            <input type="reset" value="Cancel" class="btn" href="/list.jsp">
         </div>
     </div>
 </form>

@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     <c:forEach var="user" items="${userList}">
-        <tr class="entity-row" onclick="editItem('user','${user.name}')">
+        <tr class="entity-row" onclick="editItem('user','${user.id}')">
             <td>${user.name}</td>
             <td>${user.email}</td>
             <td>
