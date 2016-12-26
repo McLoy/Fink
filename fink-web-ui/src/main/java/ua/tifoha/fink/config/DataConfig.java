@@ -1,8 +1,10 @@
 package ua.tifoha.fink.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -20,16 +22,33 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ua.tifoha.fink.repositories")
+@PropertySource("classpath:application.properties")
 public class DataConfig {
+
+    @Value("${datasource.driver}")
+    private String driver;
+
+    @Value("${datasource.url}")
+    private String url;
+
+    @Value("${datasource.username}")
+    private String username;
+
+    @Value("${datasource.password}")
+    private String password;
+
+    @Value("${datasource.packagesToScan}")
+    private String packagesToScan;
+
     @Bean
 //	@Profile ("MySql")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 //		BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/fink");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
+        dataSource.setDriverClassName(driver);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
 
         return dataSource;
     }
@@ -48,12 +67,12 @@ public class DataConfig {
 
     @Bean
     @Profile("H2")
-    public DataSource dataSourceH2() {
+    public DataSource dataSourceH2(@Value("${datasource.H2.queryPath}") String queryPath) {
 //     no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder
                 .setType(EmbeddedDatabaseType.H2) //.H2 or .DERBY
-                .addScript("db/sql/tables_h2.sql")
+                .addScript(queryPath)
 //            .addScript("db/sql/insert-data.sql")
                 .build();
     }
@@ -84,7 +103,7 @@ public class DataConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("ua.tifoha.fink.entities");
+        factory.setPackagesToScan(packagesToScan);
         factory.setDataSource(dataSource());
 
         return factory;
