@@ -34,8 +34,7 @@
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <input type="submit" value="Save" class="btn btn-primary">
-            <%-- Cancel button not working --%>
-            <input type="reset" value="Cancel" class="btn" href="/list.jsp">
+            <a href='/user' class="btn btn-default" role="button">Cancel</a>
         </div>
     </div>
 </form>
