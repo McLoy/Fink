@@ -1,10 +1,12 @@
 package ua.tifoha.fink.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -16,14 +18,16 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ua.tifoha.fink.repositories")
 @PropertySource("classpath:application.properties")
 public class DataConfig {
+    @Autowired
+    private Environment env;
 
     @Value("${datasource.driver}")
     private String driver;
@@ -76,42 +80,39 @@ public class DataConfig {
                 .build();
     }
 
-//	@Bean
-//	public PlatformTransactionManager transactionManager() {
-//		return new DataSourceTransactionManager(dataSource());
-//	}
-
-    private Properties getHibernateProperties() {
-        Properties properties = new Properties();
-        properties.put("hibernate.show_sql", "true");
-        properties.put("hibernate.format_sql", "true");
-        properties.put("hibernate.generate_statistics", "true");
-        properties.put("hibernate.hbm2ddl.auto", "update");
-        properties.put("hibernate.connection.provider_class", "org.hibernate.c3p0.internal.C3P0ConnectionProvider");
-
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        return properties;
-    }
+//    private Properties getHibernateProperties() {
+//        Properties properties = new Properties();
+//        properties.put("hibernate.show_sql", "true");
+//        properties.put("hibernate.format_sql", "true");
+//        properties.put("hibernate.generate_statistics", "true");
+//        properties.put("hibernate.hbm2ddl.auto", "update");
+//        properties.put("hibernate.connection.provider_class", "org.hibernate.c3p0.internal.C3P0ConnectionProvider");
+//
+//        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+//        return properties;
+//    }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    @Autowired
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.MYSQL);
-        vendorAdapter.setGenerateDdl(true);
+        vendorAdapter.setDatabase(env.getProperty("entityManager.database", Database.class));
+        vendorAdapter.setGenerateDdl(env.getProperty("entityManager.generateDdl", Boolean.class, true));
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan(packagesToScan);
-        factory.setDataSource(dataSource());
+        factory.setDataSource(dataSource);
 
         return factory;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    @Autowired
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManager) {
         JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        txManager.setEntityManagerFactory(entityManager);
         return txManager;
     }
 }
