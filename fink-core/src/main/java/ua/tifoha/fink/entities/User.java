@@ -25,6 +25,18 @@ public class User extends BaseNamedEntity implements UserDetails{
 	@OneToMany
 	private Collection<Role> roles = new LinkedHashSet<>();
 
+//	private String newPassword;
+//
+//	private String confirmNewPassword;
+//
+//	public String getNewPassword() {
+//		return newPassword;
+//	}
+//
+//	public String getConfirmNewPassword() {
+//		return confirmNewPassword;
+//	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
