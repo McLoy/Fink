@@ -23,6 +23,18 @@
             <textarea id="password" name="password" rows="1" class="form-control">${entity.password}</textarea>
         </div>
     </div>
+    <%--<div class="form-group">--%>
+        <%--<label for="newpassword" class="control-label col-xs-2">New password:</label>--%>
+        <%--<div class="col-xs-10">--%>
+            <%--<textarea id="newpassword" name="newpassword" rows="1" class="form-control"></textarea>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+    <%--<div type="hidden" class="form-group">--%>
+        <%--<label for="confirmnewpassword" class="control-label col-xs-2">Confirm new password:</label>--%>
+        <%--<div class="col-xs-10">--%>
+            <%--<textarea id="confirmnewpassword" name="confirmnewpassword" rows="1" class="form-control"></textarea>--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <div class="check-box">

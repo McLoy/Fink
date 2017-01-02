@@ -63,6 +63,16 @@ public class UserController {
         //String confirmPassword = @RequestParam;
         // @RequestParam берет параметр из строки - по нему можно получить поле после ввода пользователем
         //userService.findOne(id)
+        String oldPassword = user.getPassword();
+        UserDetails userFromDB = userService.loadUserByUsername(user.getUsername());
+        if (userFromDB != null){
+            if (userFromDB.getPassword().equals(oldPassword)){
+//                if (user.getNewPassword().equals(user.getConfirmNewPassword())){
+                    userService.save(user);
+                    return new ModelAndView("redirect:/user");
+//                }
+            } return null;
+        }
         userService.save(user);
         return new ModelAndView("redirect:/user");
     }
