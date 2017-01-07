@@ -20,6 +20,11 @@ public abstract class BaseEntity implements Entity {
     }
 
     @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
     public Long getId() {
         return id;
     }
@@ -39,7 +44,6 @@ public abstract class BaseEntity implements Entity {
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
     }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(this.getClass().getSimpleName());

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../header.jsp"/>
-<form method="post" action="/user/${entity.id==null?'null':entity.id}" class="form-horizontal">
+<form method="post" action="/user/${entity.id==null?'newuser':entity.id}" class="form-horizontal">
     <input type="hidden" id="id" name="id" value="${entity.id}"/>
     <div class="form-group">
         <label for="name" class="control-label col-xs-2">User:</label>
@@ -20,21 +20,23 @@
     <div class="form-group">
         <label for="password" class="control-label col-xs-2">Password:</label>
         <div class="col-xs-10">
-            <textarea id="password" name="password" rows="1" class="form-control">${entity.password}</textarea>
+            <input type="password" id="password" name="password" rows="1" class="form-control">
         </div>
     </div>
-    <%--<div class="form-group">--%>
-        <%--<label for="newpassword" class="control-label col-xs-2">New password:</label>--%>
-        <%--<div class="col-xs-10">--%>
-            <%--<textarea id="newpassword" name="newpassword" rows="1" class="form-control"></textarea>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<div type="hidden" class="form-group">--%>
-        <%--<label for="confirmnewpassword" class="control-label col-xs-2">Confirm new password:</label>--%>
-        <%--<div class="col-xs-10">--%>
-            <%--<textarea id="confirmnewpassword" name="confirmnewpassword" rows="1" class="form-control"></textarea>--%>
-        <%--</div>--%>
-    <%--</div>--%>
+    <c:if test="${entity.id != null}">
+        <div class="form-group">
+            <label for="newpass" class="control-label col-xs-2">New password:</label>
+            <div class="col-xs-10">
+                <input type="password" id="newpass" name="newpass" rows="1" class="form-control">
+            </div>
+        </div>
+    </c:if>
+    <div class="form-group">
+        <label for="confirm" class="control-label col-xs-2">Confirm password:</label>
+        <div class="col-xs-10">
+            <input type="password" id="confirm" name="confirm" rows="1" class="form-control">
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <div class="check-box">
