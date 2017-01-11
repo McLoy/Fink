@@ -15,6 +15,19 @@ import ua.tifoha.fink.services.sms.TurboSmsMessageSender;
 @PropertySource ("classpath:password.properties")
 @PropertySource ("classpath:application.properties")
 public class SenderConfig {
+
+	@Value("${sender.mail.transport.protocol}")
+	private String protocol;
+
+	@Value("${sender.mail.smtp.auth}")
+	private String auth;
+
+	@Value("${sender.mail.smtp.starttls.enable}")
+	private String starttlsEnabled;
+
+	@Value("${sender.mail.debug}")
+	private String mailDebug;
+
 	@Bean
 	public JavaMailSender javaMailService(@Value ("${mail.username}") String username,
 										  @Value ("${mail.password}") String password,
@@ -42,10 +55,10 @@ public class SenderConfig {
 
 	private Properties getMailProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("mail.transport.protocol", "smtp");
-		properties.setProperty("mail.smtp.auth", "true");
-		properties.setProperty("mail.smtp.starttls.enable", "true");
-		properties.setProperty("mail.debug", "true");
+		properties.setProperty("mail.transport.protocol", protocol);
+		properties.setProperty("mail.smtp.auth", auth);
+		properties.setProperty("mail.smtp.starttls.enable", starttlsEnabled);
+		properties.setProperty("mail.debug", mailDebug);
 		return properties;
 	}
 }
