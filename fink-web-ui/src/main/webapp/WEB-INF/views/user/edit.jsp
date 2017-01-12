@@ -20,7 +20,7 @@
     <div class="form-group ${(errors.password!=null) ? 'has-error':''}">
         <label for="password" class="control-label col-xs-2">Password:</label>
         <div class="col-xs-4">
-            <input type="password" id="password" name="password" rows="1" class="form-control">
+            <input type="password" id="password" name="password" class="form-control">
         <c:forEach var="m" items="${errors}">
             <c:if test="${m.key == 'password'}">
                 <span class="help-block">${m.value}</span>
@@ -32,7 +32,7 @@
         <div class="form-group ${(errors.newpassword!=null) ? 'has-error':''}">
             <label for="newpassword" class="control-label col-xs-2">New password:</label>
             <div class="col-xs-4">
-                <input type="password" id="newpassword" name="newpassword" rows="1" class="form-control">
+                <input type="password" id="newpassword" name="newpassword" class="form-control">
                 <c:forEach var="m" items="${errors}">
                     <c:if test="${m.key == 'newpassword'}">
                         <span class="help-block">${m.value}</span>
@@ -44,7 +44,7 @@
     <div class="form-group ${(errors.confirmpassword!=null) ? 'has-error':''}">
         <label for="confirmpassword" class="control-label col-xs-2">Confirm password:</label>
         <div class="col-xs-4">
-            <input type="password" id="confirmpassword" name="confirmpassword" rows="1" class="form-control">
+            <input type="password" id="confirmpassword" name="confirmpassword" class="form-control">
             <c:forEach var="m" items="${errors}">
                 <c:if test="${m.key == 'confirmpassword'}">
                     <span class="help-block">${m.value}</span>
