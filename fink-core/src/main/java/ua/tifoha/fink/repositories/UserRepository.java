@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface UserRepository extends NamedEntityRepository<User>{
 	User findByEmail(String email);
-
-	List<User> findAll();
 }

@@ -97,6 +97,7 @@ public class DataConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+
         vendorAdapter.setDatabase(env.getProperty("entityManager.database", Database.class));
         vendorAdapter.setGenerateDdl(env.getProperty("entityManager.generateDdl", Boolean.class, true));
 

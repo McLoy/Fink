@@ -44,11 +44,11 @@ public class SchedulerConfig extends SchedulingConfiguration {
             @Autowired PlatformTransactionManager transactionManager) {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
 //			factory.setApplicationContext(applicationContext);
-        factory.setAutoStartup(true);
-        factory.setWaitForJobsToCompleteOnShutdown(true);
-        factory.setOverwriteExistingJobs(true);
+        factory.setAutoStartup(true); //pere
+        factory.setWaitForJobsToCompleteOnShutdown(true); //pere
+        factory.setOverwriteExistingJobs(true); //pere
 
-        factory.setSchedulerName("quartzScheduler");
+        factory.setSchedulerName("quartzScheduler"); //Sheduler.quartq
 
         factory.setDataSource(dataSource);
         factory.setTransactionManager(transactionManager);
@@ -57,6 +57,7 @@ public class SchedulerConfig extends SchedulingConfiguration {
         factory.setJobFactory(jobFactory);
 
         Properties props = new ManagedProperties();
+
 //        props.setProperty("org.quartz.scheduler.instanceId", "AUTO");
 //        props.setProperty("org.quartz.jobStore.useProperties", "false");
         props.setProperty("org.quartz.jobStore.tablePrefix", "QRTZ_");
@@ -77,7 +78,7 @@ public class SchedulerConfig extends SchedulingConfiguration {
 //			props.setProperty("org.quartz.jobStore.misfireThreshold", "");
 //			props.setProperty("", "");
 
-        factory.setQuartzProperties(props);
+        factory.setQuartzProperties(props); //zasetit environment - eto zdorovenniy prop file - ego autowired nujno suda
         return factory;
     }
 
